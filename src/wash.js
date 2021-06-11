@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 const chalk = require('chalk')
-const {parse} = require('node-html-parser')
+const { parse } = require('node-html-parser')
 const clog = console.log
 
 const ga =
@@ -17,18 +17,18 @@ const ga =
 
 const list = []
 
-function listFileSync(dir){
-	var arr = fs.readdirSync(dir);
-	arr.forEach(function(item){
-		var fullpath = path.join(dir,item);
-		var stats = fs.statSync(fullpath);
-		if(stats.isDirectory()){
-			listFileSync(fullpath);
-		}else{
-			list.push(fullpath);
-		}
-	});
-	return list;
+function listFileSync (dir) {
+  const arr = fs.readdirSync(dir)
+  arr.forEach(function (item) {
+    const fullpath = path.join(dir, item)
+    const stats = fs.statSync(fullpath)
+    if (stats.isDirectory()) {
+      listFileSync(fullpath)
+    } else {
+      list.push(fullpath)
+    }
+  })
+  return list
 }
 
 (async () => {
@@ -36,12 +36,12 @@ function listFileSync(dir){
     const list = listFileSync(path.resolve(__dirname, '../temp'))
     for (const htmlpath of list) {
       clog(chalk.green('清洗'), htmlpath)
-      let parsed = path.parse(htmlpath)
-      if(fs.existsSync(htmlpath) && parsed.ext === '.html'){
-        const htmlcontent =  fs.readFileSync(htmlpath, 'utf8')
+      const parsed = path.parse(htmlpath)
+      if (fs.existsSync(htmlpath) && parsed.ext === '.html') {
+        const htmlcontent = fs.readFileSync(htmlpath, 'utf8')
         const root = parse(htmlcontent)
-        const scripts =  root.querySelectorAll('script')
-        scripts.forEach(v=>{
+        const scripts = root.querySelectorAll('script')
+        scripts.forEach(v => {
           v.remove()
         })
 
