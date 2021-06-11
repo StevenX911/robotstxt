@@ -5,12 +5,29 @@
   "main": "./src/robot.js",
   "scripts": {
     "lint": "eslint ./src --fix",
+    "prettier": "prettier --write src",
+    "lint-staged": "lint-staged",
     "start": "node ./src/robot.js",
     "www": "serve www"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/*.js": [
+      "prettier",
+      "eslint"
+    ]
   },
   "keywords": [],
   "author": "Steven Wang<wgyngbh@gmail.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StevenX911/robotstxt.git"
+  },
   "dependencies": {
     "chalk": "^4.1.1",
     "fs-extra": "^10.0.0",

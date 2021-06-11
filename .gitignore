@@ -8,6 +8,7 @@ chrome-mac
 node_modules
 package-lock.json
 yarn.lock
+temp
 
 # log
 log

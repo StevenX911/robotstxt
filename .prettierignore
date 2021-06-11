@@ -1,0 +1,8 @@
+# Ignore artifacts:
+doc
+.nyc_output
+coverage
+.eslintrc.js
+
+# Ignore all HTML files:
+*.html
