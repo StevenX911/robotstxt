@@ -15,9 +15,11 @@ function getPageName (uri) {
   }
 }
 
-async function savePageHTML (page, uri) {
+async function savePageHTML (browser, uri) {
   const tempPagePath = path.resolve(__dirname, dirPrefix + getPageName(uri))
   if(!fs.existsSync(tempPagePath)){
+    const page = await browser.newPage()
+    await page.setJavaScriptEnabled(false)
     await page.goto(uri)
     clog(`${uri} ${chalk.green('GET')}`)
     const content = await page.content()
@@ -26,6 +28,7 @@ async function savePageHTML (page, uri) {
       tempPagePath,
       content
     )
+    await page.close()
     clog(`${uri} ${chalk.green('下载成功')}`)
   } else {
     clog(`${uri} ${chalk.yellow('跳过')}`)
@@ -48,6 +51,7 @@ async function savePageHTML (page, uri) {
     await page.setJavaScriptEnabled(false)
     await page.goto(startURI)
     clog(`${startURI} ${chalk.green('GET')}`)
+    // first hierarchy
     let result = await page.evaluate((startURI)=>{
       let uriArray = document.querySelectorAll('body a')
       let array = Array.prototype.slice.call(uriArray, 0)
@@ -63,6 +67,7 @@ async function savePageHTML (page, uri) {
     }, startURI)
 
     let tempLinks = []
+    // second hierarchy
     for(const link of result.links){
       if (link) {
         await page.goto(link)
@@ -87,13 +92,15 @@ async function savePageHTML (page, uri) {
 
     const allURI = Array.from(new Set(tempLinks))
 
+    let tmparr = []
     for (const link of allURI) {
       if(link){
-        await savePageHTML(page, link)
+        tmparr.push(savePageHTML(browser, link))
       }
     }
-    clog(chalk.green('下载完成'))
+    await Promise.all(tmparr)
 
+    clog(chalk.green('下载完成'))
     await page.close()
     await browser.close()
     clog(chalk.green('退出puppeteer'))

@@ -9,6 +9,8 @@ node_modules
 package-lock.json
 yarn.lock
 temp
+temp1
+temp2
 
 # log
 log
