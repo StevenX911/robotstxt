@@ -17,7 +17,7 @@ function getPageName (uri) {
 
 async function savePageHTML (browser, uri) {
   const tempPagePath = path.resolve(__dirname, dirPrefix + getPageName(uri))
-  if(!fs.existsSync(tempPagePath)){
+  if (!fs.existsSync(tempPagePath)) {
     const page = await browser.newPage()
     await page.setJavaScriptEnabled(false)
     await page.goto(uri)
@@ -52,14 +52,15 @@ async function savePageHTML (browser, uri) {
     await page.goto(startURI)
     clog(`${startURI} ${chalk.green('GET')}`)
     // first hierarchy
-    let result = await page.evaluate((startURI)=>{
-      let uriArray = document.querySelectorAll('body a')
-      let array = Array.prototype.slice.call(uriArray, 0)
-      let links = array.map((v) => {
-        let href = v.href
-        if(href.startsWith(startURI) && href.indexOf('#') < 0){
+    const result = await page.evaluate((startURI) => {
+      const uriArray = document.querySelectorAll('body a')
+      const array = Array.prototype.slice.call(uriArray, 0)
+      const links = array.map((v) => {
+        const href = v.href
+        if (href.startsWith(startURI) && href.indexOf('#') < 0) {
           return `${href}`
         }
+        return startURI
       })
       return {
         links
@@ -68,18 +69,19 @@ async function savePageHTML (browser, uri) {
 
     let tempLinks = []
     // second hierarchy
-    for(const link of result.links){
+    for (const link of result.links) {
       if (link) {
         await page.goto(link)
         clog(`${link} ${chalk.green('GET')}`)
-        let result = await page.evaluate((startURI) => {
-          let uriArray = document.querySelectorAll('body a')
-          let array = Array.prototype.slice.call(uriArray, 0)
-          let links = array.map((v) => {
-            let href = v.href
+        const result = await page.evaluate((startURI) => {
+          const uriArray = document.querySelectorAll('body a')
+          const array = Array.prototype.slice.call(uriArray, 0)
+          const links = array.map((v) => {
+            const href = v.href
             if (href.startsWith(startURI) && href.indexOf('#') < 0) {
               return `${href}`
             }
+            return startURI
           })
           return {
             links
@@ -92,9 +94,9 @@ async function savePageHTML (browser, uri) {
 
     const allURI = Array.from(new Set(tempLinks))
 
-    let tmparr = []
+    const tmparr = []
     for (const link of allURI) {
-      if(link){
+      if (link) {
         tmparr.push(savePageHTML(browser, link))
       }
     }
