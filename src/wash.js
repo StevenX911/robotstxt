@@ -62,7 +62,9 @@ const run = async () => {
   }
 }
 
-run()
+if (typeof describe === 'undefined') {
+  run()
+}
 
 module.exports = {
   listFileSync,

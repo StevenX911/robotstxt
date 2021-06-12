@@ -9,19 +9,21 @@
     "test": "mocha",
     "coverage": "nyc npm test",
     "lint-staged": "lint-staged",
+    "precommit": "lint-staged",
     "start": "node ./src/robot.js",
     "wash": "node ./src/wash.js",
     "www": "serve www"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged"
+      "pre-commit": "npm run lint-staged",
+      "pre-push": "npm run test"
     }
   },
   "lint-staged": {
-    "[src|test]/*.js": [
-      "prettier",
-      "eslint"
+    "(src|test)/*.js": [
+      "prettier --write",
+      "eslint --fix"
     ]
   },
   "keywords": [],
@@ -45,7 +47,7 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "husky": "^6.0.0",
+    "husky": "^4.0.0",
     "lint-staged": "^11.0.0",
     "mocha": "^9.0.0",
     "nyc": "^15.1.0",

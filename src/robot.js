@@ -118,7 +118,9 @@ const run = async (rerun = 5) => {
   }
 }
 
-run()
+if (typeof describe === 'undefined') {
+  run()
+}
 
 module.exports = {
   run,
