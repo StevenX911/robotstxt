@@ -4,8 +4,7 @@ const chalk = require('chalk')
 const { parse } = require('node-html-parser')
 const clog = console.log
 
-const ga =
-`<!-- Global site tag (gtag.js) - Google Analytics -->
+const ga = `<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-50689045-5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -31,7 +30,7 @@ function listFileSync (dir) {
   return list
 }
 
-(async () => {
+const run = async () => {
   try {
     const list = listFileSync(path.resolve(__dirname, '../temp'))
     for (const htmlpath of list) {
@@ -61,4 +60,11 @@ function listFileSync (dir) {
   } catch (err) {
     clog(chalk.red('清洗失败'), err)
   }
-})()
+}
+
+run()
+
+module.exports = {
+  listFileSync,
+  run
+}
