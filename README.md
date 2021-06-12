@@ -1,7 +1,7 @@
 # robotstxt
 
 <a href="https://travis-ci.com/StevenX911/robotstxt">
-    <img src="https://travis-ci.com/StevenX911/robotstxt.svg?branch=master" alt="Build status" />
+    <img src="https://api.travis-ci.com/StevenX911/robotstxt.svg?branch=main&status=started" alt="Build status" />
 </a>
 
 <a href="https://github.com/prettier/prettier">
