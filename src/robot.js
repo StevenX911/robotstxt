@@ -109,7 +109,7 @@ const run = async (rerun = 5) => {
     clog(error)
     await browser.close()
     if (rerun > 0) {
-      run(rerun--)
+      run(--rerun)
       clog(chalk.yellow(`重启puppeteer ${rerun} 次`))
     } else {
       clog(chalk.yellow('部分下载失败'))

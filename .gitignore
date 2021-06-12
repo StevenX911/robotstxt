@@ -30,6 +30,7 @@ yarn-error.log*
 cscope.*
 
 # other
-coverage/
+coverage
+.nyc_output
 scripts/dump.*
 __test.*
