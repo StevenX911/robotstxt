@@ -5,7 +5,7 @@ node_js:
 cache: yarn
 install:
 - yarn install
-- yarn global add node-coveralls
+- yarn global add coveralls
 
 script:
 - nyc npm test && nyc report --reporter=text-lcov | coveralls
