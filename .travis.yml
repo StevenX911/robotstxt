@@ -2,3 +2,10 @@ dist: xenial
 language: node_js
 node_js:
   - '12'
+cache: yarn
+install:
+- yarn install
+- yarn global add node-coveralls
+
+script:
+- nyc npm test && nyc report --reporter=text-lcov | coveralls
