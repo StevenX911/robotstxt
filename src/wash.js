@@ -5,13 +5,13 @@ const { parse } = require('node-html-parser')
 const clog = console.log
 
 const ga = `<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-50689045-5"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YMN09T7YY"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-50689045-5');
+  gtag('config', 'G-0YMN09T7YY');
 </script>`
 
 const list = []
