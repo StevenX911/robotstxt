@@ -11,4 +11,4 @@
   <img src='https://coveralls.io/repos/github/StevenX911/robotstxt/badge.svg?branch=main' alt='Coverage Status' />
 </a>
 
-robots.txt中文站(http://robotstxt.org.cn)
+robots.txt中文站(https://robotstxt.org.cn)
